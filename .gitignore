@@ -4,9 +4,8 @@ inference_result/
 dot_result/
 json_result/
 shortcut_result/
-ArenaSDK_Linux_x64/
 result/
-
+ArenaSDK_Linux_x64/
 custom/*.ckpt
 
 
