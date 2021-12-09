@@ -1,0 +1,20 @@
+{
+    "collectorType" : "custom",
+
+    "preSize" : 1,
+    "preTempData" : "memory",
+    "parameterList" : [],
+
+    "batchSize" : 1 ,
+    "waitTime" : 1,
+    "inferenceUrl" : "",
+    "inferenceType" : "custom",
+    "inferTempData" : "memory",
+    "modelPath" : "components/anomaly_detection_model.json",
+
+    "postSize" : 1,
+    "postTempData" : "memory",
+
+    "sendType" : "custom",
+    "sendUrl" : "~/log/"
+}

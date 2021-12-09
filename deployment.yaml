@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-pipeline-tempo
+  namespace: data-pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-pipeline-tempo
+  template:
+    metadata:
+      labels:
+        app: data-pipeline-tempo
+    spec:
+      containers:
+      - name: data-pipeline-tempo
+        image: "192.168.7.130:4567/data-pipeline-tempo:develop"
+        volumeMounts:
+        - name: app
+          mountPath: /app
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        imagePullPolicy: IfNotPresent
+      imagePullSecrets:
+      - name: nexus
+      volumes:
+      - name: app
+        hostPath: 
+          path: /home/oytech/data-pipeline-atom/
+          type: Directory
+      nodeSelector:
+        kubernetes.io/hostname: gpu-01
