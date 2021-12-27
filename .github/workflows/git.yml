@@ -46,7 +46,7 @@ jobs:
           docker buildx imagetools inspect 183.105.120.175:/docker-hosted/data-pipeline-atom-serve:latest
       -
         name: Notify failure
-        uses 8398a7/action-slack@v3
+        uses: 8398a7/action-slack@v3
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         with:
