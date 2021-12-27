@@ -30,7 +30,7 @@ jobs:
           serverUrl: 183.105.120.175
           username: admin
           password: ${{ secrets.NEXUS_PASSWORD }}
-          fotmat: docker
+          format: docker
           repository: docker-hosted
       -
         name: Build and push to registry
