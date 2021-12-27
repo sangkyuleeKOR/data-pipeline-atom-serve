@@ -1,16 +1,9 @@
 # Pipeline
 
-## 모델 적용
-
-`\\183.98.48.37\AI_service\sklee`에 있는 모델을 배포해야한다.
-- `train_outputs_550.npz`를 `custom/train.npz`로 배포
-- `sango_test/model`을 `custom/model`로 배포
-
 ## 빌드 명령어
 
 `docker build -t data-pipeline-tempo:develop-cu101 --build-arg BASE_IMAGE=nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04 .`
-:`docker build -t data-pipeline-tempo:develop-cu101 --build-arg BASE_IMAGE=nvidia/cuda:11.2.1-cudnn8-devel-ubuntu18.04 .`
-
+:`docker build -t data-pipeline-tempo:develop-cu112 --build-arg BASE_IMAGE=nvidia/cuda:11.2.1-cudnn8-devel-ubuntu18.04 .`
 
 ## 구동 명령어
 
