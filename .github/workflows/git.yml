@@ -29,7 +29,7 @@ jobs:
         with:
           serverUrl: 183.105.120.175
           username: admin
-          password: ${{ secrets.password }}
+          password: ${{ secrets.NEXUS_PASSWORD }}
           fotmat: docker
           repository: docker-hosted
       -
@@ -44,3 +44,14 @@ jobs:
         name: Inspect
         run: |
           docker buildx imagetools inspect 183.105.120.175:/docker-hosted/data-pipeline-atom-serve:latest
+      -
+        name: Notify failure
+        uses 8398a7/action-slack@v3
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}
+          username: 이상규
+          channel: '#mlops-개발'
+        if: failure()
+
