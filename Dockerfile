@@ -7,13 +7,13 @@ RUN apt-get update && apt-get install -y python3-distutils python3-virtualenv ng
 	&& curl -LO https://bootstrap.pypa.io/get-pip.py \
 	&& python3 get-pip.py
 
-ADD ./ArenaSDK_Linux_x64 /ArenaSDK_Linux_x64
-RUN cd /ArenaSDK_Linux_x64 && sh Arena_SDK.conf
+# ADD ./ArenaSDK_Linux_x64 /ArenaSDK_Linux_x64
+# RUN cd /ArenaSDK_Linux_x64 && sh Arena_SDK.conf
 
-ADD ./arena_api-2.0.1-py3-none-any.whl /arena_api-2.0.1-py3-none-any.whl
-ADD ./requirements.txt /requirements.txt
+# ADD ./arena_api-2.0.1-py3-none-any.whl /arena_api-2.0.1-py3-none-any.whl
+# ADD ./requirements.txt /requirements.txt
 
-RUN pip install --upgrade pip && pip install --no-cache-dir -r /requirements.txt
-RUN pip install arena_api-2.0.1-py3-none-any.whl
+# RUN pip install --upgrade pip && pip install --no-cache-dir -r /requirements.txt
+# RUN pip install arena_api-2.0.1-py3-none-any.whl
 
 ENTRYPOINT ["/app/start.sh"]

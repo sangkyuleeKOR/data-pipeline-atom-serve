@@ -16,8 +16,8 @@ def send(sender, id, is_normal, collect_time):
         i += 1
     global count
     current_time = datetime.now()
-    read_time = current_time - collect_time
-    print('Send result, id:', id, '/ result:', is_normal, '/ lead_time:', read_time.total_seconds())
+    lead_time = current_time - collect_time
+    print('Send result, id:', id, '/ result:', is_normal, '/ lead_time:', lead_time.total_seconds())
     #process_time = COLLECT_OPTION['collect_cycle'] - read_time.total_seconds() - 0.01
     #process_time = 0.3  - read_time.total_seconds()
     #process_time = 0.2
@@ -31,7 +31,7 @@ def send(sender, id, is_normal, collect_time):
     # logfile = log_dir + '/result.txt'
     # count += 1
     # with open(logfile, 'a+') as f:
-    #     f.write('count : '+ str(count) + 'Send result, id:'+ str(id)+ '/ result:'+ str(is_normal)+ '/ lead_time:'+ str(read_time.total_seconds()) + '\n')
+    #     f.write('count : '+ str(count) + 'Send result, id:'+ str(id)+ '/ result:'+ str(is_normal)+ '/ lead_time:'+ str(lead_time.total_seconds()) + '\n')
 
 
 def run(meta, data, push):

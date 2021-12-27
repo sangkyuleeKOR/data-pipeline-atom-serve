@@ -12,4 +12,5 @@
 ## 최신 Release Image
 
 nexus repository 주소
-`192.168.7.130:4567/data-pipeline-atom/tempo:release`
+`183.105.120.175/data-pipeline-atom-serve/tempo:release`
+

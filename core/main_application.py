@@ -19,7 +19,7 @@ class MainApplication:
         transmitter.observe('preprocess', inference_runner)
         transmitter.observe('inference', post_processor)
         transmitter.observe('postprocess', sender)
-        
+        print("==========================")
         p = Process(target=collector.start, args=())
         p.start()
         pre_processor.start(queue)

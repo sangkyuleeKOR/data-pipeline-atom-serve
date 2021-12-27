@@ -6,6 +6,7 @@ from datetime import datetime
 from threading import Thread
 from . import plc_api
 from .config import COLLECT_OPTION
+import matplotlib.pyplot as plt
 
 class KeyStore:
 
@@ -44,7 +45,10 @@ def rgb_extractor(image):
 
 
 def image_crop(image):
+    img_array = np.empty((6,80,320,3), dtype=np.uint8)
     image = cv2.resize(image, dsize=(720, 540))
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    plt.imsave('test.jpg',image)
     gap = rgb_extractor(image)
     img1 = image[gap[0]:gap[0]+80, COLLECT_OPTION['width'][0]:COLLECT_OPTION['width'][1]]
     img2 = image[80+gap[1]:gap[1]+160, COLLECT_OPTION['width'][0]:COLLECT_OPTION['width'][1]]
@@ -56,8 +60,11 @@ def image_crop(image):
         img6 = image[460:540, COLLECT_OPTION['width'][0]:COLLECT_OPTION['width'][1]]
     else:
         img6 = image[400+gap[5]:gap[5]+480, COLLECT_OPTION['width'][0]:COLLECT_OPTION['width'][1]]
-        
-    return np.array([img1, img2, img3, img4, img5, img6])
+    i=0
+    for img in [img1, img2, img3, img4, img5, img6]:
+        img_array[i,:] = img
+        i+=1
+    return img_array
 
 
 # save_count = 0
@@ -70,7 +77,7 @@ def run(meta, data, push, debug=False):
         p.start()
     else:
         is_timer_start_count -= 1
-    print(is_timer_start_count)
+        
     if debug:
         img = np.frombuffer(data, dtype=np.uint8)
         img = cv2.imdecode(img, -1)
@@ -84,7 +91,6 @@ def run(meta, data, push, debug=False):
     
         t1 = datetime.now()
         for i, _croped in enumerate(croped):
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             cv2.imwrite(COLLECT_OPTION['collect_save_crop_img_path']+f'{t1.strftime("%Y%m%d_%H%M%S.%f")}_{i}.png', _croped)
 
     meta_result = []

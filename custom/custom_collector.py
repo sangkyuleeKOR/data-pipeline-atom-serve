@@ -36,23 +36,18 @@ def run(push, queue):
                 while True:
                     time.sleep(0.01)
                     current_plc_status = plc_api.get_value()
-                    #print('plc_status : ', plc_status, ' current_plc_status : ', current_plc_status, ' time : ' , datetime.now())
                     if not plc_status == current_plc_status and len(plc_queue) == 4 and len(set(plc_queue)) == 1:
                         plc_status = current_plc_status
                         if plc_status == 1 and 0 in set(plc_queue):
-                            #print('plc_queue : ', plc_queue, ' result : ', len(set((plc_queue))),  ' time : ' , datetime.now())
                             plc_queue.append(current_plc_status)
                             break
                         plc_queue.append(current_plc_status)
                     else:
                         plc_queue.append(current_plc_status)
                 t1 = datetime.now()
-                #####sleep#####
-                # time.sleep(0.15)
                 image_buffer = device.get_buffer()
                 # (width, height, 3) -> (width, height, 1)
                 img = np.ctypeslib.as_array(image_buffer.pdata,(image_buffer.height,image_buffer.width, 3))
-                #push({'type': 6-i, 'time': t1}, img)
                 device.requeue_buffer(image_buffer)
                 time.sleep(0.05)
                 queue.put(({'type': 6, 'time': t1}, img))

@@ -7,8 +7,8 @@ from pathlib import Path
 import cv2
 import os
 
-mqtt_client = Publisher_cloud()
-mqtt_client.start()
+# mqtt_client = Publisher_cloud()
+# mqtt_client.start()
 
 results = {}
 collect_times = {}
@@ -19,9 +19,8 @@ count = 0
 def run(meta, data, push):
     global count
     drop_position = None
-    output = data[0]
-    print('Model output : ', output[0])
-    for _meta, _data, _image in zip(meta[0], output[0], data[0][1]):
+    print('Model output : ', data[0][0])
+    for _meta, _data, _image in zip(meta[0], data[0][0], data[0][1]):
         _id = _meta['id']
         collect_time = _meta['time']
         if 'dropped' in _meta:
@@ -33,7 +32,7 @@ def run(meta, data, push):
         else: 
             results[_id] = [is_normal]
             save_dir_name[_id] = "{:%Y%m%d%H%M%S%f}".format(collect_time)
-            save_image(save_dir_name[_id], _image, 1)			
+            save_image(save_dir_name[_id], _image, 1)
     print('Result set : ', results)
 
     if drop_position != None:
@@ -50,15 +49,15 @@ def run(meta, data, push):
         #drop_position = None
  
         push(push_meta, push_data)
-        if not result:
-            send_image(drop_position, result)
-        elif count > CLOUD_OPTION['true_product_period'] and result:
-            send_image(drop_position, result)
-            count = 0
-        shutil.rmtree('/data/' + str(save_dir_name[drop_position]))
-        del save_dir_name[drop_position]
-        drop_position = None
-    count += 1
+    #     if not result:
+    #         send_image(drop_position, result)
+    #     elif count > CLOUD_OPTION['true_product_period'] and result:
+    #         send_image(drop_position, result)
+    #         count = 0
+    #     shutil.rmtree('/data/' + str(save_dir_name[drop_position]))
+    #     del save_dir_name[drop_position]
+    #     drop_position = None
+    # count += 1
 
 def save_image(collect_time, image, count):
     if not os.path.isdir('/data'):
@@ -69,17 +68,17 @@ def save_image(collect_time, image, count):
     cv2.imwrite(save_path, image)
     
 
-def send_image(drop_position, result):
-    collect_time = save_dir_name[drop_position]
-    result_meta = '||' + str(result)
-    dir_path = Path('/data/' + str(collect_time))
-    files = sorted(dir_path.iterdir(), reverse=True)
-    file_count = '||' + str(len(files))
-    for index, file in enumerate(files):
-        with open(file, 'rb') as f:
-            data = f.read()
-        mqtt_client.publish('tampon/', data + b'\x00' + collect_time.encode() + result_meta.encode() + file_count.encode() + b'\x00')
-    print('id : ', drop_position,' send image is success')
+# def send_image(drop_position, result):
+#     collect_time = save_dir_name[drop_position]
+#     result_meta = '||' + str(result)
+#     dir_path = Path('/data/' + str(collect_time))
+#     files = sorted(dir_path.iterdir(), reverse=True)
+#     file_count = '||' + str(len(files))
+#     for index, file in enumerate(files):
+#         with open(file, 'rb') as f:
+#             data = f.read()
+#         mqtt_client.publish('tampon/', data + b'\x00' + collect_time.encode() + result_meta.encode() + file_count.encode() + b'\x00')
+#     print('id : ', drop_position,' send image is success')
 #    nparray = np.array(data)
 #    byte = nparray[0].tobytes()
 #    mqtt_client.publish('tampon/', byte + b'\x00')
