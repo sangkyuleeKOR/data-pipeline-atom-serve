@@ -58,7 +58,7 @@ jobs:
         name: Push docker image on Nexus repository
         run: |
           docker push 183.105.120.175:2224/data-pipeline-atom-serve:latest
-      -
+#      -
 #        name: Inspect
 #        run: |
 #          docker buildx imagetools inspect sangkyulee/data-pipeline-atom-serve:latest
