@@ -27,7 +27,7 @@ jobs:
         name: Login to Nexus repo
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
-          serverUrl: 183.105.120.175
+          serverUrl: http://183.105.120.175:7003
           username: admin
           password: ${{ secrets.NEXUS_PASSWORD }}
           format: docker
