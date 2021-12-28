@@ -32,9 +32,9 @@ jobs:
           password: ${{ secrets.NEXUS_PASSWORD }}
           format: docker
           repository: docker-hosted
-          coordinates: groupId=com.example artifactId=app version=1.0.0
-          assets: extension=jar
-          filename: ./abc.jar
+          coordinates: ""
+          assets: ""
+          filename: ""
 
       -
         name: Build and push to registry
