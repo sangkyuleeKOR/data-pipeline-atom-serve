@@ -36,10 +36,10 @@ jobs:
 #          serverUrl: http://183.105.120.175:7003
 #          username: admin
 #          password: ${{ secrets.NEXUS_PASSWORD }}
-      -
-        name: Replace Docker config before push
-        run: |
-          echo {"insecure-registries" : ["183.105.120.175:2224"]} >> /etc/docker/daemon.json
+#      -
+#        name: Replace Docker config before push
+#        run: |
+#          echo {"insecure-registries" : ["183.105.120.175:2224"]} >> /etc/docker/daemon.json
       -
         name: Login to Nexus
         uses: docker/login-action@v1
