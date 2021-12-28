@@ -43,6 +43,11 @@ jobs:
           registry: 183.105.120.175:2224
           username: admin
           password: ${{ secrets.NEXUS_PASSWORD }}
+      -
+        name: Replace Docker config before pash
+        run: |
+          echo {"insecure-registries" : ["183.105.120.175:2224"]} >> /etc/docker/daemon.json
+
 
       -
         name: Build docker image
