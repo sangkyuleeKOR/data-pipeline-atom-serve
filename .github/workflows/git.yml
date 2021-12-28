@@ -32,6 +32,10 @@ jobs:
           password: ${{ secrets.NEXUS_PASSWORD }}
           format: docker
           repository: docker-hosted
+          coordinates:
+          assets:
+          filename:
+
       -
         name: Build and push to registry
         id: docker_build
