@@ -30,11 +30,6 @@ jobs:
           serverUrl: http://183.105.120.175:7003
           username: admin
           password: ${{ secrets.NEXUS_PASSWORD }}
-          format: docker
-          repository: docker-hosted
-          coordinates: groupId=com.example
-          assets: extension=py
-         
 
       -
         name: Build and push to registry
