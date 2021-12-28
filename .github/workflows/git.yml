@@ -34,7 +34,7 @@ jobs:
           repository: docker-hosted
           coordinates: groupId=com.example
           assets: extension=py
-          filename: abc.py
+         
 
       -
         name: Build and push to registry
