@@ -34,7 +34,7 @@ jobs:
           repository: docker-hosted
           coordinates: groupId=com.example artifactId=app version=1.0.0
           assets: extension=jar
-          filename: .
+          filename: ./abc.jar
 
       -
         name: Build and push to registry
